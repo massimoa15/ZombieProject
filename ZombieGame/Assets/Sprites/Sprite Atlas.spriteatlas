@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 5bbfa39bb2a5d694bb76a036a215272b, type: 3}
+    totalSpriteSurfaceArea: 1536
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 5159575515870328408, guid: b70bbaa0673765244b0938d71df2c5ed, type: 3}
+  - {fileID: 8199620958273934944, guid: b70bbaa0673765244b0938d71df2c5ed, type: 3}
+  - {fileID: -2688762050304226248, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 3397631960219173377, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 5698719574607053838, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 3769421185786229844, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Floor Tilemap_0
+  - Floor Tilemap_1
+  - Wall Tilemap_0
+  - Wall Tilemap_1
+  - Wall Tilemap_2
+  - Wall Tilemap_3
+  m_RenderDataMap: {}
+  m_Tag: Sprite Atlas
+  m_IsVariant: 0

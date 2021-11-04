@@ -7,7 +7,7 @@ namespace Entities
     public class Bullet : MonoBehaviour
     {
         private Vector2 direction;  //Direction the bullet will travel
-        private float speed = 5;    //Arbitrarily chosen, can be changed if needed
+        private float speed = 10;    //Arbitrarily chosen, can be changed if needed
 
         public float destroyDelay = 2; //Amount of time (in seconds) before this bullet is destroyed
 
@@ -17,24 +17,28 @@ namespace Entities
 
         public Gun gun;
         
+        private Rigidbody2D rb;
 
         public void Initialize(Vector2 direction, Character character, Gun gun)
         {
             this.direction = direction;
             bulletOwnerCharacter = character;
             this.gun = gun;
+            rb = GetComponent<Rigidbody2D>();
         }
         
         private void Start()
         {
+            //Wait for destroyDelay seconds and then destroy the bullet
             StartCoroutine(WaitThenDestroyCoroutine(destroyDelay));
         }
-
-        private void LateUpdate()
-        {
-            transform.Translate(direction * (speed * Time.deltaTime), Space.Self);
-        }
         
+        private void FixedUpdate()
+        {
+            //Move according to the vector that the bullet is fired at
+            rb.MovePosition(rb.position + direction * (speed * Time.deltaTime));
+        }
+
         IEnumerator WaitThenDestroyCoroutine(float delay)
         {
             yield return new WaitForSeconds(delay);

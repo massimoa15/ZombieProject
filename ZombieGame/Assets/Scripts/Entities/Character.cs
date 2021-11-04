@@ -26,9 +26,9 @@ namespace Entities
         public int Money { get; private set; }
 
         /// <summary>
-        /// Instantiates character with 10 health, 1 speed, 1 contactDamage, and 1 money
+        /// Instantiates character with 3 health, 1 speed, 1 contactDamage, and 1 money
         /// </summary>
-        public Character() : this(10, 1, 1, 1)
+        public Character() : this(3, 1, 1, 1)
         {
             
         }

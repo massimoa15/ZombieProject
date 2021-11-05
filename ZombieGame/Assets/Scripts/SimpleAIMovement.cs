@@ -18,6 +18,7 @@ public class SimpleAIMovement : MonoBehaviour
         if (GlobalData.PlayerObject != null)
         {
             agent.SetDestination(GlobalData.PlayerObject.transform.position);
+            //print(agent.destination + " | " + GlobalData.PlayerObject.transform.position);
         }
     }
 }

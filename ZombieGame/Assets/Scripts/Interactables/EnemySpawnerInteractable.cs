@@ -52,8 +52,10 @@ namespace Environment
         public void SpawnEnemy()
         {
             int index = Random.Range(0, positions.Length);
-            print("Spawned at " + positions[index]);
-            GameObject enemySpawned = Instantiate(enemy, positions[index], Quaternion.identity);
+            Vector3 spawnPos = positions[index];
+            spawnPos.z = 0;
+            GameObject enemySpawned = Instantiate(enemy, spawnPos, Quaternion.identity);
+            print("Spawned at " + spawnPos);
             
             //Make sure the enemy is visible
             enemySpawned.SetActive(true);

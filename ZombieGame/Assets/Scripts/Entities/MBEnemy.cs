@@ -14,21 +14,7 @@ namespace Entities
             
             //Should determine the enemy stats based on the player
         }
-
-        private void FixedUpdate()
-        {
-            /*
-            //Don't need this because we are using an AI tilemap code
-            //Get direction to the player if a player exists
-            if (GlobalData.PlayerObject != null)
-            {
-                directionToPlayer = CalculateDirectionToPlayer(GlobalData.PlayerObject.transform);
-            }
-            
-            transform.Translate(directionToPlayer * (Character.Speed * Time.deltaTime));
-            */
-        }
-
+        
         public Character Character { get; set; }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -55,12 +41,6 @@ namespace Entities
                     EnemySpawnerInteractable.DecreaseRemEnemies();
                 }
             }
-        }
-
-        public Vector3 CalculateDirectionToPlayer(Transform playerTransform)
-        {
-            Vector3 v = playerTransform.position - transform.position;
-            return v.normalized;
         }
     }
 }

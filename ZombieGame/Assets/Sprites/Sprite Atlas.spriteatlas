@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 5bbfa39bb2a5d694bb76a036a215272b, type: 3}
-    totalSpriteSurfaceArea: 1536
+    totalSpriteSurfaceArea: 3840
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -52,17 +52,35 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 5159575515870328408, guid: b70bbaa0673765244b0938d71df2c5ed, type: 3}
   - {fileID: 8199620958273934944, guid: b70bbaa0673765244b0938d71df2c5ed, type: 3}
+  - {fileID: 8634598688440146792, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 1500100375160936654, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 2921596355780585943, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 5996905125026852751, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 1885766022688342333, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 7087590258918110881, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
   - {fileID: -2688762050304226248, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
   - {fileID: 3397631960219173377, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
   - {fileID: 5698719574607053838, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
   - {fileID: 3769421185786229844, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: 3442718748150469124, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: -811613471182904456, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
+  - {fileID: -7585821065916489771, guid: 0948300c5facddf41af3a5a7e5714636, type: 3}
   m_PackedSpriteNamesToIndex:
   - Floor Tilemap_0
   - Floor Tilemap_1
+  - Wall Tilemap_8
+  - Wall Tilemap_9
+  - Wall Tilemap_4
+  - Wall Tilemap_5
+  - Wall Tilemap_6
+  - Wall Tilemap_7
   - Wall Tilemap_0
   - Wall Tilemap_1
   - Wall Tilemap_2
   - Wall Tilemap_3
+  - Wall Tilemap_12
+  - Wall Tilemap_11
+  - Wall Tilemap_10
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

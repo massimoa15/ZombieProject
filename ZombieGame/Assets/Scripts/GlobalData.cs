@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class GlobalData
 {
-    public static Player Player;
-    public static GameObject PlayerObject;
+    public static List<Player> Players = new List<Player>();
+    public static List<GameObject> PlayerObjects = new List<GameObject>();
 
     private static int WaveNum = 1;
 
@@ -18,11 +18,11 @@ public static class GlobalData
     /// <returns>True if there is a player existing in the game, false otherwise</returns>
     public static bool DoesPlayerExist()
     {
-        if (Player == null)
+        if (Players == null)
         {
             return false;
         }
-        if (PlayerObject == null)
+        if (PlayerObjects == null)
         {
             return false;
         }
@@ -40,6 +40,10 @@ public static class GlobalData
         WaveNum += val;
     }
 
+    /// <summary>
+    /// Gives the current wave number, an int
+    /// </summary>
+    /// <returns>Current wave number</returns>
     public static int GetWaveNum()
     {
         return WaveNum;

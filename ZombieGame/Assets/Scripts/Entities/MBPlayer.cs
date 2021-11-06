@@ -35,8 +35,8 @@ namespace Entities
             player.Speed = 3;
             
             //Save references in GlobalData
-            GlobalData.Player = player;
-            GlobalData.PlayerObject = gameObject;
+            GlobalData.Players.Add(player);
+            GlobalData.PlayerObjects.Add(gameObject);
         }
 
         private void FixedUpdate()

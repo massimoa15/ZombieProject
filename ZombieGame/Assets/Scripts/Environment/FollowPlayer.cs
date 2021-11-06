@@ -19,16 +19,21 @@ namespace Environment
             //If player object is not assigned, assign one
             if (player == null)
             {
-                if (GlobalData.PlayerObject != null)
+                //Can't assign one if there are no players
+                if (GlobalData.PlayerObjects.Count > 0)
                 {
-                    player = GlobalData.PlayerObject;
+                    //Set the player as player 1
+                    player = GlobalData.PlayerObjects[0];
                 }
             }
             else
             {
+                /*
                 //Set the position of the camera to the position of the player, with offsets
                 transform.position = new Vector3(player.transform.position.x + xOffset,
                     player.transform.position.y + yOffset, player.transform.position.z + zOffset);
+                    */
+                transform.position = player.transform.position + new Vector3(xOffset, yOffset, zOffset);
             }
         }
     }

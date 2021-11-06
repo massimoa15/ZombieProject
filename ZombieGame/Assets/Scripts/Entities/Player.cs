@@ -13,7 +13,7 @@ namespace Entities
         }
 
         //Player's current gun
-        public Gun Gun { get; }
+        private Gun Gun { get; set; }
 
         /// <summary>
         /// Give the player an upgrade, depending on what name (upgrade type) is passed
@@ -50,10 +50,40 @@ namespace Entities
 
                 Gun.FiringDelay = tempDelay;
             }
+            else if (name.Equals("Rifle"))
+            {
+                //Need to give the player a 
+                Gun = new Gun(true, 1, 30, 0.1f);
+            }
             else
             {
                 Debug.LogError("Invalid upgrade name provided " + name + ". No upgrade given");
             }
+        }
+
+        //This will be called whenever the player wants to shoot their gun
+        public void ShootGun()
+        {
+            //Gun.Shoot returns the new remaining amount of ammo. If the gun has no ammo left, we need to remove this gun
+            if (Gun.Shoot() <= 0)
+            {
+                AssignDefaultGun();
+            }
+        }
+
+        /// <summary>
+        /// Get the player's current gun
+        /// </summary>
+        /// <returns>The player's current gun</returns>
+        public Gun GetGun()
+        {
+            return Gun;
+        }
+
+        public void AssignDefaultGun()
+        {
+            //This calls the default constructor
+            Gun = new Gun();
         }
     }
 }

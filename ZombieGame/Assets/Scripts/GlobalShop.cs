@@ -12,12 +12,11 @@ public static class GlobalShop
     
 
     //A list of all of the different types of items. This will be used when determining what to put in the shop
-    public static Item[] ItemList = {new Item(5, "Heal1"), new Item(5, "HealthUp"), new Item(5, "DamageUp"), new Item(5, "SpeedUp"), new Item(5, "FiringDelayDown")};
+    public static Item[] ItemList = {new Item(5, "Heal1"), new Item(5, "HealthUp"), new Item(5, "DamageUp"), new Item(5, "SpeedUp"), new Item(5, "FiringDelayDown"), new Item(1, "Rifle")};
     public static AnimatorController[] Animations;
     
     public static void BuyItem(int i)
     {
-        //Items[i].SetAvailability(false);
         ItemAvailability[i] = false;
     }
 

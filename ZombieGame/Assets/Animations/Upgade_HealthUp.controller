@@ -6,7 +6,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Upgade_Health
+  m_Name: Upgade_HealthUp
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers: []

@@ -19,9 +19,7 @@ namespace Entities
         private Player player;
 
         private bool controllerIsDisabled = false;
-    
-        private float shootingDelay = 0.5f;
-
+        
         public bool isInteracting = false;
         
         private void Awake()
@@ -50,7 +48,7 @@ namespace Entities
             //If the player is shooting (input is not 0), and the delay has passed, shoot the gun
             if (shootingVector != Vector2.zero && !waitingToShoot)
             {
-                StartCoroutine(ShootThenWaitCoroutine(shootingDelay));
+                StartCoroutine(ShootThenWaitCoroutine(player.GetGun().FiringDelay));
             }
         }
 
@@ -100,9 +98,11 @@ namespace Entities
         //This will ensure the user can only shoot when their delay is passed (time between shots)
         IEnumerator ShootThenWaitCoroutine(float delay)
         {
-            SummonBullet();
             //Start the waiting process, and store a bool to tell the computer that we are currently waiting
             waitingToShoot = true;
+            SummonBullet();
+            //"Shoot" the gun, aka reduce ammo if it has limited ammo
+            player.ShootGun();
             yield return new WaitForSeconds(delay);
             waitingToShoot = false;
         }
@@ -116,7 +116,7 @@ namespace Entities
         
             //Instantiate bullet and give it a vector
             GameObject bullet = Instantiate(bulletObject, bulletPos, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.Gun);
+            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.GetGun());
         }
 
         public void Heal()
@@ -170,20 +170,6 @@ namespace Entities
         {
             player.GiveUpgrade(name);
         }
-
-        public void HitByEnemy()
-        {
-            //Get bumped backward because the enemy smacked you
-            //This isn't working properly
-            rb.AddForce(-movementVector.normalized * 5, ForceMode2D.Impulse);
-        }
-
-        IEnumerator DisableControllerCoroutine(float delay)
-        {
-            controllerIsDisabled = true;
-            yield return new WaitForSeconds(delay);
-            controllerIsDisabled = false;
-        }
-
+        
     }
 }

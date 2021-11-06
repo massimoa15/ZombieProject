@@ -29,13 +29,17 @@ public class Gun
 
     
     //Constructors
-    public Gun()
+    public Gun() : this(false,1,1,0.5f)
     {
         //Default gun is the starting pistol with infinite ammo
-        HasLimitedAmmo = false;
-        Damage = 1;
-        RemainingAmmo = 1;
-        FiringDelay = 0.5f;
+    }
+
+    public Gun(bool hasLimitedAmmo, int damage, int ammo, float firingDelay)
+    {
+        HasLimitedAmmo = hasLimitedAmmo;
+        Damage = damage;
+        RemainingAmmo = ammo;
+        FiringDelay = firingDelay;
     }
 
     

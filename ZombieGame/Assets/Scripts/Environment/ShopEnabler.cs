@@ -54,13 +54,18 @@ namespace Environment
             //Disable everything
             for (int i = 0; i < transform.childCount; i++)
             {
+                GameObject itemObject = transform.GetChild(i).gameObject;
                 //Disable the game object to hide it
-                transform.GetChild(i).gameObject.SetActive(false);
+                itemObject.SetActive(false);
                 
                 //Now, change all of the items and set them all to available
-                GlobalShop.Items[i] = GlobalShop.PickRandomItem();
-                //GlobalShop.Items[i].SetAvailability(true);
+                int itemListInd = GlobalShop.GetRandomItemIndex();
+                GlobalShop.Items[i] = GlobalShop.ItemList[itemListInd];
                 GlobalShop.SetAvailability(i, true);
+                
+                //Need to assign the animator for this object as well
+                itemObject.GetComponent<Animator>().runtimeAnimatorController = GlobalShop.Animations[itemListInd];
+                
                 print("Assigned shop index " + i + " to " + GlobalShop.Items[i].name);
             }
             ShopUIHolder.SetActive(false);

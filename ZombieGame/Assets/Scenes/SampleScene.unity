@@ -719,6 +719,7 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 84c620f0857454d479a0a5977abaaf5c, type: 2}
   - {fileID: 9100000, guid: 30e19e0be0118e24e84c167a136876c5, type: 2}
   - {fileID: 9100000, guid: 02629b223c461494195e5847648cf88f, type: 2}
+  - {fileID: 9100000, guid: 30e19e0be0118e24e84c167a136876c5, type: 2}
 --- !u!4 &785057883
 Transform:
   m_ObjectHideFlags: 0

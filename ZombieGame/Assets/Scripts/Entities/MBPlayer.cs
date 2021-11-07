@@ -3,6 +3,7 @@ using System.Collections;
 using Global;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = System.Random;
 
 namespace Entities
 {
@@ -28,6 +29,9 @@ namespace Entities
         private Vector2 mousePos;
 
         private bool holdingShootButton;
+        
+        private Random random = new Random();
+
 
         private void Awake()
         {
@@ -110,7 +114,6 @@ namespace Entities
                 if (context.performed)
                 {
                     shootingVector = context.ReadValue<Vector2>().normalized;
-                    print(shootingVector);
                     holdingShootButton = true;
                 }
                 else
@@ -158,12 +161,42 @@ namespace Entities
         private void SummonBullet()
         {
             Transform _transform = transform;
+            
+            //Need to make the shooting vector inaccurate based on the gun's inaccuracy
+            Gun playerGun = player.GetGun();
+            float gunInacc = playerGun.InaccuracyDeg;
+            float origTheta = Mathf.Rad2Deg * Mathf.Atan((shootingVector.x / shootingVector.y));
+
+            float maxValue = origTheta + gunInacc;
+            float minValue = origTheta - gunInacc;
+
+            float newTheta = (float)(random.NextDouble() * (maxValue - minValue) + minValue);
+            print("Old: " + origTheta + ". New: " + newTheta);
+            
+            //We can use this new angle mixed with hypotenuse = 1 (normalized vector) to determine the x and y components of the new inaccurate bullet. Below are the trigonometric conversions since we have hyp = 1
+            float x = Mathf.Abs(Mathf.Sin(Mathf.Deg2Rad * newTheta));
+            float y = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * newTheta));
+            
+            //Now change sign of x and y if necessary
+            if (shootingVector.x < 0)
+            {
+                x *= -1;
+            }
+
+            if (shootingVector.y < 0)
+            {
+                y *= -1;
+            }
+
+            //Save values in shooting vector
+            shootingVector = new Vector2(x, y);
+            
             //The position of the bullet will be the current position of the player, + the radius of the player in the direction the bullet is being fired
             Vector3 bulletPos = _transform.position + ((Vector3) shootingVector * (boxCollider.size.x * _transform.localScale.x));
         
             //Instantiate bullet and give it a vector
             GameObject bullet = Instantiate(bulletObject, bulletPos, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.GetGun());
+            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, playerGun);
         }
 
         public void Heal()
@@ -184,14 +217,8 @@ namespace Entities
             {
                 //Take damage equal to the enemy's damage stat
                 player.TakeDamage(other.gameObject.GetComponent<MBEnemy>().Character.ContactDamage);
-        
-                //Do the physics for getting hit by an enemy. Commented out because I don't like how it works right now
-                //HitByEnemy();
-
-                //Disable player input momentarily
-                //StartCoroutine(DisableControllerCoroutine(0.5f));
                 
-                //TODO give i-frames
+                //TODO give i-frames?
             }
         }
 

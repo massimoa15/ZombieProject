@@ -5,16 +5,13 @@ namespace Entities
 {
     public class Player : Character
     {
-        //Attributes
-
-        //Constructor
-        public Player()
-        {
-            Gun = new Gun();
-        }
-
         //Player's current gun
         private Gun Gun { get; set; }
+
+        public Player()
+        {
+            AssignDefaultGun();
+        }
 
         /// <summary>
         /// Give the player an upgrade, depending on what name (upgrade type) is passed
@@ -54,8 +51,13 @@ namespace Entities
             }
             else if (name == ItemName.Rifle)
             {
-                //Need to give the player a 
-                Gun = new Gun(true, 1, 100, 0.2f);
+                //Need to give the player a rifle
+                Gun = new Gun(true, 1, 100, 0.2f, 5);
+            }
+            else if (name == ItemName.SMG)
+            {
+                //Give player an SMG
+                Gun = new Gun(true, 1, 50, 0.1f, 10);
             }
             else
             {

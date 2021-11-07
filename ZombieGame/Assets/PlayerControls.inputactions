@@ -23,9 +23,17 @@
                 },
                 {
                     "name": "Shoot",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "1c0f39a5-e4cf-4287-9b62-8c77b22e7c40",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MousePos",
+                    "type": "Value",
+                    "id": "7726aa37-e0a0-448b-809b-9037e7c20c7d",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -132,12 +140,23 @@
                 },
                 {
                     "name": "",
-                    "id": "cc7263b0-714d-4922-8805-7095cef18755",
-                    "path": "",
-                    "interactions": "",
+                    "id": "5858b5a2-4e9e-4d2e-953a-1e4225dc44d8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47f69709-b2e1-4dc1-a542-d132d8fa1462",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -162,6 +181,11 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

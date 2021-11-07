@@ -21,7 +21,13 @@ namespace Entities
         private bool controllerIsDisabled = false;
         
         public bool isInteracting = false;
-        
+
+        private Camera mainCam;
+
+        private Vector2 mousePos;
+
+        private bool holdingShootButton;
+
         private void Awake()
         {
             //Initialize commonly accessed components
@@ -35,6 +41,8 @@ namespace Entities
             //Save references in GlobalData
             GlobalData.Players.Add(player);
             GlobalData.PlayerObjects.Add(gameObject);
+            
+            mainCam = Camera.main;
         }
 
         private void FixedUpdate()
@@ -45,8 +53,8 @@ namespace Entities
 
         private void LateUpdate()
         {
-            //If the player is shooting (input is not 0), and the delay has passed, shoot the gun
-            if (shootingVector != Vector2.zero && !waitingToShoot)
+            //If the player is shooting (input is not 0), the player is holding a shoot button (left click on mouse or using the right stick on a controller), and the delay has passed, shoot the gun
+            if (shootingVector != Vector2.zero && holdingShootButton && !waitingToShoot)
             {
                 StartCoroutine(ShootThenWaitCoroutine(player.GetGun().FiringDelay));
             }
@@ -80,7 +88,44 @@ namespace Entities
          */
         public void SaveShootDirection(InputAction.CallbackContext context)
         {
-            shootingVector = context.ReadValue<Vector2>().normalized;
+            //If using mouse
+            if (context.control.device.description.deviceClass.Equals("Mouse"))
+            {
+                //If player is clicking their mouse
+                if (context.performed)
+                {
+                    //Set this to true to show that the player is firing their gun
+                    holdingShootButton = true;
+                }
+                else
+                {
+                    //Set this to false to show that the player is not firing their gun
+                    holdingShootButton = false;
+                }
+            }
+            //Not keyboard and mouse so it must be a controller
+            else
+            {
+                if (context.performed)
+                {
+                    shootingVector = context.ReadValue<Vector2>().normalized;
+                    holdingShootButton = true;
+                }
+                else
+                {
+                    holdingShootButton = false;
+                }
+            }
+        }
+
+        /*
+         * Used by the input system, it constantly gets the mouse position and converts it to a shooting vector.
+         */
+        public void GetMousePosInput(InputAction.CallbackContext context)
+        {
+            mousePos = context.ReadValue<Vector2>();
+            mousePos = mainCam.ScreenToWorldPoint(mousePos);
+            shootingVector = ((Vector3) (mousePos) - transform.position).normalized;
         }
 
         //This will be called when the player hits the interact button. Will check if there is an interactable object within the appropriate radius

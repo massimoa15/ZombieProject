@@ -19,11 +19,15 @@ namespace Entities
         private Player player;
 
         private bool controllerIsDisabled = false;
-    
-        private float shootingDelay = 0.5f;
-
-        public bool isInteracting = false;
         
+        public bool isInteracting = false;
+
+        private Camera mainCam;
+
+        private Vector2 mousePos;
+
+        private bool holdingShootButton;
+
         private void Awake()
         {
             //Initialize commonly accessed components
@@ -37,6 +41,8 @@ namespace Entities
             //Save references in GlobalData
             GlobalData.Players.Add(player);
             GlobalData.PlayerObjects.Add(gameObject);
+            
+            mainCam = Camera.main;
         }
 
         private void FixedUpdate()
@@ -47,10 +53,10 @@ namespace Entities
 
         private void LateUpdate()
         {
-            //If the player is shooting (input is not 0), and the delay has passed, shoot the gun
-            if (shootingVector != Vector2.zero && !waitingToShoot)
+            //If the player is shooting (input is not 0), the player is holding a shoot button (left click on mouse or using the right stick on a controller), and the delay has passed, shoot the gun
+            if (shootingVector != Vector2.zero && holdingShootButton && !waitingToShoot)
             {
-                StartCoroutine(ShootThenWaitCoroutine(shootingDelay));
+                StartCoroutine(ShootThenWaitCoroutine(player.GetGun().FiringDelay));
             }
         }
 
@@ -82,7 +88,44 @@ namespace Entities
          */
         public void SaveShootDirection(InputAction.CallbackContext context)
         {
-            shootingVector = context.ReadValue<Vector2>().normalized;
+            //If using mouse
+            if (context.control.device.description.deviceClass.Equals("Mouse"))
+            {
+                //If player is clicking their mouse
+                if (context.performed)
+                {
+                    //Set this to true to show that the player is firing their gun
+                    holdingShootButton = true;
+                }
+                else
+                {
+                    //Set this to false to show that the player is not firing their gun
+                    holdingShootButton = false;
+                }
+            }
+            //Not keyboard and mouse so it must be a controller
+            else
+            {
+                if (context.performed)
+                {
+                    shootingVector = context.ReadValue<Vector2>().normalized;
+                    holdingShootButton = true;
+                }
+                else
+                {
+                    holdingShootButton = false;
+                }
+            }
+        }
+
+        /*
+         * Used by the input system, it constantly gets the mouse position and converts it to a shooting vector.
+         */
+        public void GetMousePosInput(InputAction.CallbackContext context)
+        {
+            mousePos = context.ReadValue<Vector2>();
+            mousePos = mainCam.ScreenToWorldPoint(mousePos);
+            shootingVector = ((Vector3) (mousePos) - transform.position).normalized;
         }
 
         //This will be called when the player hits the interact button. Will check if there is an interactable object within the appropriate radius
@@ -100,9 +143,11 @@ namespace Entities
         //This will ensure the user can only shoot when their delay is passed (time between shots)
         IEnumerator ShootThenWaitCoroutine(float delay)
         {
-            SummonBullet();
             //Start the waiting process, and store a bool to tell the computer that we are currently waiting
             waitingToShoot = true;
+            SummonBullet();
+            //"Shoot" the gun, aka reduce ammo if it has limited ammo
+            player.ShootGun();
             yield return new WaitForSeconds(delay);
             waitingToShoot = false;
         }
@@ -116,7 +161,7 @@ namespace Entities
         
             //Instantiate bullet and give it a vector
             GameObject bullet = Instantiate(bulletObject, bulletPos, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.Gun);
+            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.GetGun());
         }
 
         public void Heal()
@@ -170,20 +215,6 @@ namespace Entities
         {
             player.GiveUpgrade(name);
         }
-
-        public void HitByEnemy()
-        {
-            //Get bumped backward because the enemy smacked you
-            //This isn't working properly
-            rb.AddForce(-movementVector.normalized * 5, ForceMode2D.Impulse);
-        }
-
-        IEnumerator DisableControllerCoroutine(float delay)
-        {
-            controllerIsDisabled = true;
-            yield return new WaitForSeconds(delay);
-            controllerIsDisabled = false;
-        }
-
+        
     }
 }

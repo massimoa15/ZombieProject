@@ -173,6 +173,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1c0f39a5-e4cf-4287-9b62-8c77b22e7c40
     m_ActionName: Gameplay/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2613652342155201298}
+        m_TargetAssemblyTypeName: Entities.MBPlayer, Assembly-CSharp
+        m_MethodName: GetMousePosInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7726aa37-e0a0-448b-809b-9037e7c20c7d
+    m_ActionName: Gameplay/New action
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Controller
   m_DefaultActionMap: Gameplay
@@ -187,7 +203,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2613652342155201303}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: fcd75c5553a149047aae881db4be3517, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

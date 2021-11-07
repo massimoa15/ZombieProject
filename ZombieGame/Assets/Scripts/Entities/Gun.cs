@@ -1,5 +1,3 @@
-
-
 /// <summary>
 /// The main root class that will be used by each different gun in the game
 /// </summary>

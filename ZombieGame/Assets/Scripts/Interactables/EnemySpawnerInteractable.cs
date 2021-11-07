@@ -1,5 +1,6 @@
 using System.Collections;
 using Entities;
+using Global;
 using Interactables;
 using UnityEngine;
 using Random = UnityEngine.Random;

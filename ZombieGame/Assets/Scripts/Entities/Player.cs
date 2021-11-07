@@ -1,3 +1,4 @@
+using Global;
 using UnityEngine;
 
 namespace Entities
@@ -19,28 +20,29 @@ namespace Entities
         /// Give the player an upgrade, depending on what name (upgrade type) is passed
         /// </summary>
         /// <param name="name">Name of upgrade</param>
-        public void GiveUpgrade(string name)
+        public void GiveUpgrade(ItemName name)
         {
             Debug.Log("Gave upgrade: " + name);
-            if (name.Equals("Heal1"))
+            if (name == ItemName.Heal1)
             {
                 Heal(1);
             }
-            else if (name.Equals("HealthUp"))
+            else if (name == ItemName.HealthUp)
             {
                 MaxHealth += 1;
                 CurHealth += 1;
             }
-            else if (name.Equals("SpeedUp"))
+            else if (name == ItemName.SpeedUp)
             {
                 Speed += 1;
             }
-            else if (name.Equals("DamageUp"))
+            else if (name == ItemName.DamageUp)
             {
                 Gun.Damage += 1;
             }
-            else if (name.Equals("FiringDelayDown"))
+            else if (name == ItemName.FiringDelayDown)
             {
+                Debug.LogWarning("This should be reworked so that the player has a float value in its object that defines how much it's delay should be changed on all guns");
                 float tempDelay = Gun.FiringDelay;
                 tempDelay -= 0.05f;
                 if (tempDelay < 0)
@@ -50,10 +52,10 @@ namespace Entities
 
                 Gun.FiringDelay = tempDelay;
             }
-            else if (name.Equals("Rifle"))
+            else if (name == ItemName.Rifle)
             {
                 //Need to give the player a 
-                Gun = new Gun(true, 1, 30, 0.1f);
+                Gun = new Gun(true, 1, 100, 0.2f);
             }
             else
             {

@@ -1,52 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Global;
 
 public class Item
 {
     private int cost;
+    
+    public ItemName Name;
 
-    /// <summary>
-    /// Available for purchase
-    /// </summary>
-    //private bool isAvailable;
-
-    public string name = "";
-
-    public Sprite sprite;
-
-    public Item(int cost)
+    public Item(int cost, ItemName name = ItemName.Heal1)
     {
         this.cost = cost;
-        //isAvailable = true;
-        name = "";
-    }
-
-    public Item(int cost, string name)
-    {
-        this.cost = cost;
-        //this.isAvailable = isAvailable;
-        this.name = name;
+        this.Name = name;
     }
 
     public int GetCost()
     {
         return cost;
     }
-/*
-    public bool GetAvailability()
-    {
-        return isAvailable;
-    }
 
-    public void SetAvailability(bool b)
-    {
-        isAvailable = b;
-    }
-*/
     public override string ToString()
     {
-        //return "$" + cost + ". Avail: " + isAvailable;
         return "$" + cost + ".";
     }
 }

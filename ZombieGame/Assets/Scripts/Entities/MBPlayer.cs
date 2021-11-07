@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Global;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -109,6 +110,7 @@ namespace Entities
                 if (context.performed)
                 {
                     shootingVector = context.ReadValue<Vector2>().normalized;
+                    print(shootingVector);
                     holdingShootButton = true;
                 }
                 else
@@ -211,7 +213,7 @@ namespace Entities
             player.RemoveMoney(cost);
         }
 
-        public void GiveUpgrade(string name)
+        public void GiveUpgrade(ItemName name)
         {
             player.GiveUpgrade(name);
         }

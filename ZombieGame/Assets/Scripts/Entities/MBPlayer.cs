@@ -161,42 +161,16 @@ namespace Entities
         private void SummonBullet()
         {
             Transform _transform = transform;
-            
-            //Need to make the shooting vector inaccurate based on the gun's inaccuracy
-            Gun playerGun = player.GetGun();
-            float gunInacc = playerGun.InaccuracyDeg;
-            float origTheta = Mathf.Rad2Deg * Mathf.Atan((shootingVector.x / shootingVector.y));
 
-            float maxValue = origTheta + gunInacc;
-            float minValue = origTheta - gunInacc;
-
-            float newTheta = (float)(random.NextDouble() * (maxValue - minValue) + minValue);
-            print("Old: " + origTheta + ". New: " + newTheta);
-            
-            //We can use this new angle mixed with hypotenuse = 1 (normalized vector) to determine the x and y components of the new inaccurate bullet. Below are the trigonometric conversions since we have hyp = 1
-            float x = Mathf.Abs(Mathf.Sin(Mathf.Deg2Rad * newTheta));
-            float y = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * newTheta));
-            
-            //Now change sign of x and y if necessary
-            if (shootingVector.x < 0)
-            {
-                x *= -1;
-            }
-
-            if (shootingVector.y < 0)
-            {
-                y *= -1;
-            }
-
-            //Save values in shooting vector
-            shootingVector = new Vector2(x, y);
+            //Make the shooting vector inaccurate based on the gun's inaccuracy
+            shootingVector = DetermineInaccurateShootingVector(shootingVector);
             
             //The position of the bullet will be the current position of the player, + the radius of the player in the direction the bullet is being fired
             Vector3 bulletPos = _transform.position + ((Vector3) shootingVector * (boxCollider.size.x * _transform.localScale.x));
         
             //Instantiate bullet and give it a vector
             GameObject bullet = Instantiate(bulletObject, bulletPos, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, playerGun);
+            bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.GetGun());
         }
 
         public void Heal()
@@ -244,6 +218,36 @@ namespace Entities
         {
             player.GiveUpgrade(name);
         }
-        
+
+        private Vector2 DetermineInaccurateShootingVector(Vector2 origVec)
+        {
+            //Need to make the shooting vector inaccurate based on the gun's inaccuracy
+            Gun playerGun = player.GetGun();
+            float gunInacc = playerGun.InaccuracyDeg;
+            float origTheta = Mathf.Rad2Deg * Mathf.Atan((origVec.x / origVec.y));
+
+            float maxValue = origTheta + gunInacc;
+            float minValue = origTheta - gunInacc;
+
+            float newTheta = (float)(random.NextDouble() * (maxValue - minValue) + minValue);
+            
+            //We can use this new angle mixed with hypotenuse = 1 (normalized vector) to determine the x and y components of the new inaccurate bullet. Below are the trigonometric conversions since we have hyp = 1
+            float x = Mathf.Abs(Mathf.Sin(Mathf.Deg2Rad * newTheta));
+            float y = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * newTheta));
+            
+            //Now change sign of x and y if necessary
+            if (shootingVector.x < 0)
+            {
+                x *= -1;
+            }
+
+            if (shootingVector.y < 0)
+            {
+                y *= -1;
+            }
+
+            //Save values in shooting vector
+            return new Vector2(x, y);
+        }
     }
 }

@@ -18,7 +18,7 @@ public class InfoHudDebug : MonoBehaviour
         if (GlobalData.Players.Count > 0)
         {
             Player player = GlobalData.Players[playerNo];
-            string statText = "\nSpeed: " + player.Speed + ". Damage: " + player.GetGun().Damage + ". Firing Delay: " + player.GetGun().FiringDelay;
+            string statText = "\nSpeed: " + player.Speed + ". Damage: " + player.GetAccurateDamage() + ". Firing Delay: " + player.GetAccurateFiringDelay();
             text.text = "Player health: " + player.GetHealthString() + ". Money: " + player.Money + "\nWave: " + GlobalData.GetWaveNum() + ". Num Rem: " + EnemySpawnerInteractable.GetNumRemEnemies() + statText;
         }
     }

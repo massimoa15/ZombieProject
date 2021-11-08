@@ -48,7 +48,7 @@ namespace Entities
             }
             else if (name == UpgradeName.SpeedUp)
             {
-                Speed += 1;
+                Speed += 0.2f;
             }
             else if (name == UpgradeName.DamageUp)
             {
@@ -61,13 +61,30 @@ namespace Entities
             }
             else if (name == UpgradeName.Rifle)
             {
-                //Need to give the player a rifle
-                Gun = new Gun(GunType.Rifle);
+                //First, check if the player currently has a rifle. If they do, just add ammo to the rifle
+                if (Gun.GunType == GunType.Rifle)
+                {
+                    Gun.AddAmmo();
+                }
+                //They don't currently have a rifle
+                else
+                {
+                    //Set their gun equal to a rifle using the constructor with that gun type as the enum parameter
+                    Gun = new Gun(GunType.Rifle);
+                }
             }
             else if (name == UpgradeName.SMG)
             {
-                //Give player an SMG
-                Gun = new Gun(GunType.SMG);
+                if (Gun.GunType == GunType.SMG)
+                {
+                    Gun.AddAmmo();
+                }
+                //They don't already have an SMG
+                else
+                {
+                    //Set their gun equal to a SMG using the constructor with that gun type as the enum parameter
+                    Gun = new Gun(GunType.SMG);
+                }
             }
             else
             {

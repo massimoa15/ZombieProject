@@ -26,6 +26,11 @@ namespace Entities
         /// The amount of ammo left in this gun
         /// </summary>
         public int RemainingAmmo { get; private set; }
+        
+        /// <summary>
+        /// The amount of ammo that this gun starts with
+        /// </summary>
+        public int StartingAmmo { get; }
     
         /// <summary>
         /// How much damage each bullet will deal
@@ -42,6 +47,11 @@ namespace Entities
         /// </summary>
         public float InaccuracyDeg { get; private set; }
 
+        /// <summary>
+        /// What type of gun this is
+        /// </summary>
+        public GunType GunType { get; }
+
         //Constructors
         public Gun() : this(GunType.Pistol)
         {
@@ -54,11 +64,14 @@ namespace Entities
         /// <param name="gunType">Enum for which gun this is</param>
         public Gun (GunType gunType)
         {
+            //Save this gun type locally
+            GunType = gunType;
+            
             if (gunType == GunType.Pistol)
             {
                 HasLimitedAmmo = false;
                 Damage = 50;
-                RemainingAmmo = 1;
+                StartingAmmo = RemainingAmmo = 1;
                 FiringDelay = 0.5f;
                 InaccuracyDeg = 1;
             }
@@ -66,7 +79,7 @@ namespace Entities
             {
                 HasLimitedAmmo = true;
                 Damage = 75;
-                RemainingAmmo = 100;
+                StartingAmmo = RemainingAmmo = 100;
                 FiringDelay = 0.2f;
                 InaccuracyDeg = 5;
             }
@@ -74,14 +87,14 @@ namespace Entities
             {
                 HasLimitedAmmo = true;
                 Damage = 30;
-                RemainingAmmo = 50;
+                StartingAmmo = RemainingAmmo = 50;
                 FiringDelay = 0.1f;
                 InaccuracyDeg = 10;
             }
         }
 
         /// <summary>
-        /// Manually set gun parameters
+        /// Manually set gun parameters. This probably shouldn't be used.
         /// </summary>
         /// <param name="hasLimitedAmmo">True if this gun can run out of ammo, false otherwise</param>
         /// <param name="damage">Amount of base damage the bullets from this gun will do</param>
@@ -90,9 +103,10 @@ namespace Entities
         /// <param name="inaccuracyDeg">How many degrees the bullets from this gun can be inaccurate by</param>
         public Gun(bool hasLimitedAmmo, int damage, int ammo, float firingDelay, float inaccuracyDeg)
         {
+            Debug.LogWarning("Should you be using this or should you be using an enum with the other constructor?");
             HasLimitedAmmo = hasLimitedAmmo;
             Damage = damage;
-            RemainingAmmo = ammo;
+            StartingAmmo = RemainingAmmo = ammo;
             FiringDelay = firingDelay;
             InaccuracyDeg = inaccuracyDeg;
         }
@@ -111,6 +125,16 @@ namespace Entities
             }
 
             return RemainingAmmo;
+        }
+
+        public void AddAmmo(int amt)
+        {
+            RemainingAmmo += amt;
+        }
+
+        public void AddAmmo()
+        {
+            RemainingAmmo += StartingAmmo;
         }
     }
 }

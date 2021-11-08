@@ -10,7 +10,7 @@ namespace Interactables
     {
         public GameObject enemy;        //Enemy prefab to be spawned
         //spawnable positions
-        private Vector2[] positions = new []{new Vector2(5,5), new Vector2(5,-5), new Vector2(-5,-5), new Vector2(-5,5)};
+        private Vector2[] positions = {new Vector2(5,5), new Vector2(5,-5), new Vector2(-5,-5), new Vector2(-5,5)};
         
         private int numToSpawn = 4;         //How many enemies need to be spawned
 
@@ -38,7 +38,7 @@ namespace Interactables
         }
 
         //This will be called at the start of each wave when enemies need to be spawned
-        public void SpawnWave()
+        private void SpawnWave()
         {
             //Update numToSpawn based on the wave num
             Debug.Log("Currently spawning 5*waveNum enemies per wave");
@@ -53,7 +53,10 @@ namespace Interactables
             StartCoroutine(WaitThenSpawnWaveCoroutine(timeBetweenSpawnsDelay));
         }
 
-        public void SpawnEnemy()
+        /// <summary>
+        /// Spawns an enemy
+        /// </summary>
+        private void SpawnEnemy()
         {
             int index = Random.Range(0, positions.Length);
             Vector3 spawnPos = positions[index];

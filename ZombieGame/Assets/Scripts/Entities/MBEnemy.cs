@@ -12,9 +12,8 @@ namespace Entities
         void Start()
         {
             //Instantiate character based on the wave number
-            Character = new Character(GlobalData.GetWaveNum());
-            
-            //Should determine the enemy stats based on the player
+            Character = new Character(Enemy.Basic);
+            Debug.LogWarning("Always spawning basic enemies");
         }
         
         public Character Character { get; set; }

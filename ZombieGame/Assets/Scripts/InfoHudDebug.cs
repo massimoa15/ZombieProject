@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities;
 using Environment;
 using Global;
+using Interactables;
 using UnityEngine;
 using UnityEngine.UI;
 

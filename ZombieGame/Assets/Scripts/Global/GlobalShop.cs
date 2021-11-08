@@ -1,9 +1,9 @@
-﻿using UnityEditor.Animations;
+﻿using UnityEngine;
 using Random = System.Random;
 
 namespace Global
 {
-    public enum ItemName
+    public enum UpgradeName
     {
         Heal1,
         HealthUp,
@@ -22,8 +22,8 @@ namespace Global
         private static Random random = new Random();
 
         //A list of all of the different types of items. This will be used when determining what to put in the shop
-        public static Item[] ItemList = {new Item(5, ItemName.Heal1), new Item(5, ItemName.HealthUp), new Item(5, ItemName.DamageUp), new Item(5, ItemName.SpeedUp), new Item(5, ItemName.FiringDelayDown), new Item(1, ItemName.Rifle), new Item(1, ItemName.SMG)};
-        public static AnimatorController[] Animations;
+        public static Item[] ItemList = {new Item(5, UpgradeName.Heal1), new Item(5, UpgradeName.HealthUp), new Item(5, UpgradeName.DamageUp), new Item(5, UpgradeName.SpeedUp), new Item(5, UpgradeName.FiringDelayDown), new Item(1, UpgradeName.Rifle), new Item(1, UpgradeName.SMG)};
+        public static RuntimeAnimatorController[] Animations;
         
         public static void BuyItem(int i)
         {

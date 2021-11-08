@@ -1,11 +1,10 @@
 using System.Collections;
 using Entities;
 using Global;
-using Interactables;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Environment
+namespace Interactables
 {
     public class EnemySpawnerInteractable : Interactable
     {
@@ -41,6 +40,10 @@ namespace Environment
         //This will be called at the start of each wave when enemies need to be spawned
         public void SpawnWave()
         {
+            //Update numToSpawn based on the wave num
+            Debug.Log("Currently spawning 5*waveNum enemies per wave");
+            numToSpawn = 5 * GlobalData.GetWaveNum();
+            
             //Add the number that will be spawned to the number of remaining enemies
             numRemEnemies += numToSpawn;
             

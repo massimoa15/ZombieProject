@@ -13,7 +13,6 @@ namespace Environment
         {
             if (!GlobalShop.IsItemAvailable(index))
             {
-                print("Item is not available");
                 gameObject.SetActive(false);
             }
             

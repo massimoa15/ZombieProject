@@ -1,5 +1,6 @@
 using Environment;
 using Global;
+using Interactables;
 using UnityEngine;
 
 namespace Entities
@@ -26,7 +27,7 @@ namespace Entities
                 Bullet bullet = other.transform.GetComponent<Bullet>();
                 
                 //Need to take damage equal to the damage stat from the owner of the bullet
-                Character.TakeDamage(bullet.GetDamage());
+                Character.TakeDamage(bullet.GetAccurateDamage());
                 bullet.DestroyBullet();
                 
                 //Check if this enemy now has no health, aka dead

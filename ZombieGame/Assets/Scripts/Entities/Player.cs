@@ -5,59 +5,69 @@ namespace Entities
 {
     public class Player : Character
     {
-        //Player's current gun
+        /// <summary>
+        /// The gun that this player has
+        /// </summary>
         private Gun Gun { get; set; }
+        
+        /// <summary>
+        /// How much to decrease the firing delay for this player's guns
+        /// </summary>
+        public float FiringDelayModifier { get; private set; }
+        /// <summary>
+        /// How much to increase the damage of this player's bullets on their guns
+        /// </summary>
+        public int DamageModifier { get; private set; }
 
+        /// <summary>
+        /// Assigns the default gun and sets the modifier attributes to 0
+        /// </summary>
         public Player()
         {
             AssignDefaultGun();
+            //Default modifier values
+            FiringDelayModifier = 0;
+            DamageModifier = 0;
         }
 
         /// <summary>
         /// Give the player an upgrade, depending on what name (upgrade type) is passed
         /// </summary>
         /// <param name="name">Name of upgrade</param>
-        public void GiveUpgrade(ItemName name)
+        public void GiveUpgrade(UpgradeName name)
         {
             Debug.Log("Gave upgrade: " + name);
-            if (name == ItemName.Heal1)
+            if (name == UpgradeName.Heal1)
             {
                 Heal(1);
             }
-            else if (name == ItemName.HealthUp)
+            else if (name == UpgradeName.HealthUp)
             {
                 MaxHealth += 1;
                 CurHealth += 1;
             }
-            else if (name == ItemName.SpeedUp)
+            else if (name == UpgradeName.SpeedUp)
             {
                 Speed += 1;
             }
-            else if (name == ItemName.DamageUp)
+            else if (name == UpgradeName.DamageUp)
             {
-                Gun.Damage += 1;
+                DamageModifier += 5;
             }
-            else if (name == ItemName.FiringDelayDown)
+            else if (name == UpgradeName.FiringDelayDown)
             {
-                Debug.LogWarning("This should be reworked so that the player has a float value in its object that defines how much it's delay should be changed on all guns");
-                float tempDelay = Gun.FiringDelay;
-                tempDelay -= 0.05f;
-                if (tempDelay < 0)
-                {
-                    tempDelay = 0;
-                }
-
-                Gun.FiringDelay = tempDelay;
+                //Decrease the firing delay of all guns by this amount below, then apply it to the current gun
+                FiringDelayModifier -= 0.01f;
             }
-            else if (name == ItemName.Rifle)
+            else if (name == UpgradeName.Rifle)
             {
                 //Need to give the player a rifle
-                Gun = new Gun(true, 1, 100, 0.2f, 5);
+                Gun = new Gun(GunType.Rifle);
             }
-            else if (name == ItemName.SMG)
+            else if (name == UpgradeName.SMG)
             {
                 //Give player an SMG
-                Gun = new Gun(true, 1, 50, 0.1f, 10);
+                Gun = new Gun(GunType.SMG);
             }
             else
             {
@@ -65,7 +75,9 @@ namespace Entities
             }
         }
 
-        //This will be called whenever the player wants to shoot their gun
+        /// <summary>
+        /// Called when the player wants to shoot their gun, it will call the gun's shoot method and will assign the default gun to this player if their gun is out of ammo
+        /// </summary>
         public void ShootGun()
         {
             //Gun.Shoot returns the new remaining amount of ammo. If the gun has no ammo left, we need to remove this gun
@@ -84,10 +96,37 @@ namespace Entities
             return Gun;
         }
 
+        /// <summary>
+        /// Set this player's gun to the default. Currently it is the infinite ammo pistol
+        /// </summary>
         public void AssignDefaultGun()
         {
-            //This calls the default constructor
-            Gun = new Gun();
+            //Default gun is the pistol
+            Gun = new Gun(GunType.Pistol);
+        }
+
+        /// <summary>
+        /// Get the firing delay for this player's gun, factoring in their upgrade modified attribute
+        /// </summary>
+        /// <returns>Accurate firing delay (in seconds)</returns>
+        public float GetAccurateFiringDelay()
+        {
+            float temp = Gun.FiringDelay - FiringDelayModifier;
+            if (temp < 0)
+            {
+                temp = 0;
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Get the damage for this player's gun, factoring in their upgrade modified attribute
+        /// </summary>
+        /// <returns>Accurate damage</returns>
+        public int GetAccurateDamage()
+        {
+            return Gun.Damage + DamageModifier;
         }
     }
 }

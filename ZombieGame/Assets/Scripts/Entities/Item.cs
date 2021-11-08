@@ -4,9 +4,9 @@ public class Item
 {
     private int cost;
     
-    public ItemName Name;
+    public UpgradeName Name;
 
-    public Item(int cost, ItemName name = ItemName.Heal1)
+    public Item(int cost, UpgradeName name = UpgradeName.Heal1)
     {
         this.cost = cost;
         this.Name = name;

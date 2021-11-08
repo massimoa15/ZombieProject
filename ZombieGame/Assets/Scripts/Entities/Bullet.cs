@@ -11,7 +11,7 @@ namespace Entities
 
         public float destroyDelay = 2; //Amount of time (in seconds) before this bullet is destroyed
 
-        private Character bulletOwnerCharacter;
+        private Player bulletOwnerCharacter;
 
         public GameObject bulletObject;
 
@@ -19,10 +19,16 @@ namespace Entities
         
         private Rigidbody2D rb;
 
-        public void Initialize(Vector2 direction, Character character, Gun gun)
+        /// <summary>
+        /// Initialize this bullet with some important information
+        /// </summary>
+        /// <param name="direction">The vector holding the direction that this bullet will be travelling in</param>
+        /// <param name="player">The Player object that fired this bullet</param>
+        /// <param name="gun">The gun that this bullet was fired from</param>
+        public void Initialize(Vector2 direction, Player player, Gun gun)
         {
             this.direction = direction;
-            bulletOwnerCharacter = character;
+            bulletOwnerCharacter = player;
             this.gun = gun;
             rb = GetComponent<Rigidbody2D>();
         }
@@ -81,6 +87,15 @@ namespace Entities
                 //Destroy bullet
                 DestroyBullet();
             }
+        }
+
+        /// <summary>
+        /// Get the accurate damage for this bullet, factoring in the player's damage attribute
+        /// </summary>
+        /// <returns>The amount of damage this bullet should deal</returns>
+        public int GetAccurateDamage()
+        {
+            return bulletOwnerCharacter.GetAccurateDamage();
         }
     }
 }

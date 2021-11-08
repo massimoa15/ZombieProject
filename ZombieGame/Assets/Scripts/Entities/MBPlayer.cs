@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Global;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = System.Random;
 
 namespace Entities
 {
@@ -27,6 +29,9 @@ namespace Entities
         private Vector2 mousePos;
 
         private bool holdingShootButton;
+        
+        private Random random = new Random();
+
 
         private void Awake()
         {
@@ -34,9 +39,6 @@ namespace Entities
             boxCollider = GetComponent<BoxCollider2D>();
             rb = GetComponent<Rigidbody2D>();
             player = new Player();
-
-            Debug.LogWarning("Manually set player speed to 3 for testing");
-            player.Speed = 3;
             
             //Save references in GlobalData
             GlobalData.Players.Add(player);
@@ -56,7 +58,7 @@ namespace Entities
             //If the player is shooting (input is not 0), the player is holding a shoot button (left click on mouse or using the right stick on a controller), and the delay has passed, shoot the gun
             if (shootingVector != Vector2.zero && holdingShootButton && !waitingToShoot)
             {
-                StartCoroutine(ShootThenWaitCoroutine(player.GetGun().FiringDelay));
+                StartCoroutine(ShootThenWaitCoroutine(player.GetAccurateFiringDelay()));
             }
         }
 
@@ -124,6 +126,11 @@ namespace Entities
         public void GetMousePosInput(InputAction.CallbackContext context)
         {
             mousePos = context.ReadValue<Vector2>();
+            //Set mainCam if it is null
+            if (mainCam == null)
+            {
+                mainCam = Camera.main;
+            }
             mousePos = mainCam.ScreenToWorldPoint(mousePos);
             shootingVector = ((Vector3) (mousePos) - transform.position).normalized;
         }
@@ -152,10 +159,16 @@ namespace Entities
             waitingToShoot = false;
         }
 
-        //Called when a bullet is fired out of the player's gun
+        /// <summary>
+        /// Called when a bullet is fired out of the player's gun. Summons a bullet in the firing direction the player provided and instantiates the bullet with the appropriate values
+        /// </summary>
         private void SummonBullet()
         {
             Transform _transform = transform;
+
+            //Make the shooting vector inaccurate based on the gun's inaccuracy
+            shootingVector = DetermineInaccurateShootingVector(shootingVector);
+            
             //The position of the bullet will be the current position of the player, + the radius of the player in the direction the bullet is being fired
             Vector3 bulletPos = _transform.position + ((Vector3) shootingVector * (boxCollider.size.x * _transform.localScale.x));
         
@@ -164,11 +177,18 @@ namespace Entities
             bullet.GetComponent<Bullet>().Initialize(shootingVector, player, player.GetGun());
         }
 
+        /// <summary>
+        /// Calls Player.Heal(). Heals 1 
+        /// </summary>
         public void Heal()
         {
             player.Heal();
         }
 
+        /// <summary>
+        /// Calls Player.Heal(val)
+        /// </summary>
+        /// <param name="val">Amount to heal</param>
         public void Heal(int val)
         {
             player.Heal(val);
@@ -182,14 +202,8 @@ namespace Entities
             {
                 //Take damage equal to the enemy's damage stat
                 player.TakeDamage(other.gameObject.GetComponent<MBEnemy>().Character.ContactDamage);
-        
-                //Do the physics for getting hit by an enemy. Commented out because I don't like how it works right now
-                //HitByEnemy();
-
-                //Disable player input momentarily
-                //StartCoroutine(DisableControllerCoroutine(0.5f));
                 
-                //TODO give i-frames
+                //TODO give i-frames?
             }
         }
 
@@ -211,10 +225,49 @@ namespace Entities
             player.RemoveMoney(cost);
         }
 
-        public void GiveUpgrade(string name)
+        /// <summary>
+        /// Give the player an upgrade based on the UpgradeName they provided
+        /// </summary>
+        /// <param name="name">Name of the upgrade being given</param>
+        public void GiveUpgrade(UpgradeName name)
         {
             player.GiveUpgrade(name);
         }
-        
+
+        /// <summary>
+        /// Takes the accurate shooting vector provided by the user and returns a new, inaccurate vector based on the guns innacuracy
+        /// </summary>
+        /// <param name="origVec">Vector that the player is trying to shoot at</param>
+        /// <returns>Vector that the bullet will be shot at</returns>
+        private Vector2 DetermineInaccurateShootingVector(Vector2 origVec)
+        {
+            //Need to make the shooting vector inaccurate based on the gun's inaccuracy
+            Gun playerGun = player.GetGun();
+            float gunInacc = playerGun.InaccuracyDeg;
+            float origTheta = Mathf.Rad2Deg * Mathf.Atan((origVec.x / origVec.y));
+
+            float maxValue = origTheta + gunInacc;
+            float minValue = origTheta - gunInacc;
+
+            float newTheta = (float)(random.NextDouble() * (maxValue - minValue) + minValue);
+            
+            //We can use this new angle mixed with hypotenuse = 1 (normalized vector) to determine the x and y components of the new inaccurate bullet. Below are the trigonometric conversions since we have hyp = 1
+            float x = Mathf.Abs(Mathf.Sin(Mathf.Deg2Rad * newTheta));
+            float y = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * newTheta));
+            
+            //Now change sign of x and y if necessary
+            if (shootingVector.x < 0)
+            {
+                x *= -1;
+            }
+
+            if (shootingVector.y < 0)
+            {
+                y *= -1;
+            }
+
+            //Save values in shooting vector
+            return new Vector2(x, y);
+        }
     }
 }

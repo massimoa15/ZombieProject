@@ -1,5 +1,6 @@
 using System;
 using Entities;
+using Global;
 using UnityEngine;
 
 namespace Environment
@@ -36,7 +37,7 @@ namespace Environment
             player.RemoveMoney(GlobalShop.Items[index].GetCost());
             
             //Will need to have a "name" string in this class to define what upgrade this is
-            player.GiveUpgrade(GlobalShop.Items[index].name);
+            player.GiveUpgrade(GlobalShop.Items[index].Name);
         }
     }
 }

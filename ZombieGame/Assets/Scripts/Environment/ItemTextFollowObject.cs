@@ -1,4 +1,5 @@
 using System;
+using Global;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -12,7 +13,6 @@ namespace Environment
         {
             if (!GlobalShop.IsItemAvailable(index))
             {
-                print("Item is not available");
                 gameObject.SetActive(false);
             }
             

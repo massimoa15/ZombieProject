@@ -1,4 +1,6 @@
 using Environment;
+using Global;
+using Interactables;
 using UnityEngine;
 
 namespace Entities
@@ -10,9 +12,8 @@ namespace Entities
         void Start()
         {
             //Instantiate character based on the wave number
-            Character = new Character(GlobalData.GetWaveNum());
-            
-            //Should determine the enemy stats based on the player
+            Character = new Character(Enemy.Basic);
+            Debug.LogWarning("Always spawning basic enemies");
         }
         
         public Character Character { get; set; }
@@ -25,7 +26,7 @@ namespace Entities
                 Bullet bullet = other.transform.GetComponent<Bullet>();
                 
                 //Need to take damage equal to the damage stat from the owner of the bullet
-                Character.TakeDamage(bullet.GetDamage());
+                Character.TakeDamage(bullet.GetAccurateDamage());
                 bullet.DestroyBullet();
                 
                 //Check if this enemy now has no health, aka dead

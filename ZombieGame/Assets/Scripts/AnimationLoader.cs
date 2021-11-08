@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
+using Global;
 using UnityEngine;
 
 public class AnimationLoader : MonoBehaviour
 {
-    public AnimatorController[] shopAnimations;
+    public RuntimeAnimatorController[] shopAnimations;
 
     void Start()
     {

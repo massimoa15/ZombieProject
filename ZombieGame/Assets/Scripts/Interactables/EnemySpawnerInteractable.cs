@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Entities;
 using Global;
 using UnityEngine;
@@ -8,7 +10,16 @@ namespace Interactables
 {
     public class EnemySpawnerInteractable : Interactable
     {
-        public GameObject[] enemies;        //Enemy prefab to be spawned
+        public EnemyWeight[] enemies;        //Enemy prefab to be spawned
+ 
+        //This will hold all of the enemies and their spawning weights. This will be completely controlled in the inspector
+        [Serializable]
+        public struct EnemyWeight
+        {
+            public GameObject enemyObj;
+            public int weight;
+        }
+
         //spawnable positions
         private Vector2[] positions = {new Vector2(5,5), new Vector2(5,-5), new Vector2(-5,-5), new Vector2(-5,5)};
         
@@ -20,9 +31,17 @@ namespace Interactables
 
         private SpriteRenderer sRenderer;
 
+        private int totalWeight;
+
         private void Start()
         {
             sRenderer = GetComponent<SpriteRenderer>();
+            //Also determine the total weight by summing the weights in the enemies array
+            totalWeight = 0;
+            foreach (EnemyWeight item in enemies)
+            {
+                totalWeight += item.weight;
+            }
         }
 
         private void Update()
@@ -43,7 +62,7 @@ namespace Interactables
             //Update numToSpawn based on the wave num
             Debug.Log("Currently spawning 5*waveNum enemies per wave");
             numToSpawn = 5 * GlobalData.GetWaveNum();
-            
+
             //Add the number that will be spawned to the number of remaining enemies
             numRemEnemies += numToSpawn;
             
@@ -62,7 +81,7 @@ namespace Interactables
             Vector3 spawnPos = positions[index];
             spawnPos.z = 0;
             //Randomly choose an enemy to spawn from the array of enemy types
-            GameObject tempEnemy = enemies[Random.Range(0, enemies.Length)];
+            GameObject tempEnemy = ChooseRandomEnemy(enemies);
             GameObject enemySpawned = Instantiate(tempEnemy, spawnPos, Quaternion.identity);
             
             //Make sure the enemy is visible
@@ -111,6 +130,29 @@ namespace Interactables
                 sRenderer.enabled = false;
                 SpawnWave();
             }
+        }
+
+        /// <summary>
+        /// Choose an enemy from the list using the weights stored for each in the EnemyWeight struct items
+        /// </summary>
+        /// <param name="enemies">The list of enemies we are choosing from</param>
+        /// <returns>The randomly chosen enemy</returns>
+        public GameObject ChooseRandomEnemy(EnemyWeight[] enemies)
+        {
+            int val = Random.Range(0, totalWeight);
+            foreach (EnemyWeight item in enemies)
+            {
+                //The value is less than the item's weight so this is the enemy to choose
+                if (val < item.weight)
+                {
+                    return item.enemyObj;
+                }
+                //Value is not less than the item's weight so decrease by that amount
+                val -= item.weight;
+            }
+
+            //Should never reach here, if it does just return the first enemy in the list which should be the basic enemy
+            return enemies[0].enemyObj;
         }
     }
 }

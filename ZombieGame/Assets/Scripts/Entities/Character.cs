@@ -7,7 +7,8 @@ namespace Entities
     public enum Enemy
     {
         Basic,
-        Tank
+        Tank,
+        Scout
     }
     
     /// <summary>
@@ -78,13 +79,6 @@ namespace Entities
         {
             switch (enemy)
             {
-                case Enemy.Basic:
-                    //Basic enemy will be common, easy to kill
-                    CurHealth = MaxHealth = 50; //This value should be equal to the damage that the default pistol deals (Maybe it should be 2x pistol damage? Maybe it should start lower and scale based on the wave number?)
-                    Speed = 2.5f;
-                    ContactDamage = 1;
-                    Money = 1;
-                    break;
                 case Enemy.Tank:
                     //Hard to kill, slower
                     CurHealth = MaxHealth = 200;
@@ -92,9 +86,16 @@ namespace Entities
                     ContactDamage = 1;
                     Money = 1;
                     break;
-                //Use basic enemy stats as default
+                case Enemy.Scout:
+                    //Easy to kill, very fast
+                    CurHealth = MaxHealth = 50;
+                    Speed = 4f;
+                    ContactDamage = 1;
+                    Money = 1;
+                    break;
+                //Use basic enemy stats as default. Not keeping an Enemy.Basic case
                 default:
-                    CurHealth = MaxHealth = 50; //This value should be equal to the damage that the default pistol deals (Maybe it should be 2x pistol damage? Maybe it should start lower and scale based on the wave number?)
+                    CurHealth = MaxHealth = 100; //This value should be equal to the damage that the default pistol deals (Maybe it should be 2x pistol damage? Maybe it should start lower and scale based on the wave number?)
                     Speed = 2.5f;
                     ContactDamage = 1;
                     Money = 1;

@@ -66,8 +66,7 @@ namespace Environment
                 
                 //Need to assign the animator for this object as well
                 itemObject.GetComponent<Animator>().runtimeAnimatorController = GlobalShop.Animations[itemListInd];
-                
-                print("Assigned shop index " + i + " to " + GlobalShop.Items[i].Name);
+                //print("Assigned shop index " + i + " to " + GlobalShop.Items[i].Name);
             }
             ShopUIHolder.SetActive(false);
         }

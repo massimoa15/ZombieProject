@@ -2563,7 +2563,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.5
-  enemy: {fileID: 5189354460230035462, guid: eed0862562e1157479da70b3c1aa30cb, type: 3}
+  enemies:
+  - enemyObj: {fileID: 5189354460230035462, guid: eed0862562e1157479da70b3c1aa30cb, type: 3}
+    weight: 50
+  - enemyObj: {fileID: 5189354460230035462, guid: b74759ba1e493df4189917caab8d5747, type: 3}
+    weight: 10
+  - enemyObj: {fileID: 5189354460230035462, guid: 5c38a515b24fa7440b77b398a6c91c8a, type: 3}
+    weight: 20
 --- !u!1 &1198375849
 GameObject:
   m_ObjectHideFlags: 0

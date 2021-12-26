@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 namespace Entities
 {
     public enum Enemy
     {
-        Basic
-    };
+        Basic,
+        Tank
+    }
     
     /// <summary>
     /// A character is an entity in the game. Does not extend MonoBehaviour
@@ -74,13 +76,29 @@ namespace Entities
         /// <param name="enemy">The enemy that we are basing this character on</param>
         public Character(Enemy enemy)
         {
-            if (enemy == Enemy.Basic)
+            switch (enemy)
             {
-                //Basic enemy will be common, easy to kill
-                CurHealth = MaxHealth = 50; //This value should be equal to the damage that the default pistol deals (Maybe it should be 2x pistol damage? Maybe it should start lower and scale based on the wave number?)
-                Speed = 0.5f;
-                ContactDamage = 1;
-                Money = 1;
+                case Enemy.Basic:
+                    //Basic enemy will be common, easy to kill
+                    CurHealth = MaxHealth = 50; //This value should be equal to the damage that the default pistol deals (Maybe it should be 2x pistol damage? Maybe it should start lower and scale based on the wave number?)
+                    Speed = 2.5f;
+                    ContactDamage = 1;
+                    Money = 1;
+                    break;
+                case Enemy.Tank:
+                    //Hard to kill, slower
+                    CurHealth = MaxHealth = 200;
+                    Speed = 1.5f;
+                    ContactDamage = 1;
+                    Money = 1;
+                    break;
+                //Use basic enemy stats as default
+                default:
+                    CurHealth = MaxHealth = 50; //This value should be equal to the damage that the default pistol deals (Maybe it should be 2x pistol damage? Maybe it should start lower and scale based on the wave number?)
+                    Speed = 2.5f;
+                    ContactDamage = 1;
+                    Money = 1;
+                    break;
             }
         }
 

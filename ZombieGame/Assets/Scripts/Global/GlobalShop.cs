@@ -22,7 +22,7 @@ namespace Global
         private static Random random = new Random();
 
         //A list of all of the different types of items. This will be used when determining what to put in the shop
-        public static Item[] ItemList = {new Item(5, UpgradeName.Heal1), new Item(5, UpgradeName.HealthUp), new Item(5, UpgradeName.DamageUp), new Item(5, UpgradeName.SpeedUp), new Item(5, UpgradeName.FiringDelayDown), new Item(1, UpgradeName.Rifle), new Item(1, UpgradeName.SMG)};
+        public static Item[] ItemList = {new Item(5, UpgradeName.Heal1), new Item(5, UpgradeName.HealthUp), new Item(5, UpgradeName.DamageUp), new Item(5, UpgradeName.SpeedUp), new Item(5, UpgradeName.FiringDelayDown), new Item(10, UpgradeName.Rifle), new Item(10, UpgradeName.SMG)};
         public static RuntimeAnimatorController[] Animations;
         
         /// <summary>

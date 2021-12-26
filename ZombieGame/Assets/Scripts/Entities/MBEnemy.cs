@@ -2,18 +2,20 @@ using Environment;
 using Global;
 using Interactables;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Entities
 {
     public class MBEnemy : MonoBehaviour
     {
         private Vector3 directionToPlayer;
+        public Enemy type;
         
         void Start()
         {
             //Instantiate character based on the wave number
-            Character = new Character(Enemy.Basic);
-            Debug.LogWarning("Always spawning basic enemies");
+            Character = new Character(type);
+            gameObject.GetComponent<NavMeshAgent>().speed = Character.Speed;
         }
         
         public Character Character { get; set; }

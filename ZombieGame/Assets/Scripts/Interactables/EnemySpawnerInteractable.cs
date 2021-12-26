@@ -8,7 +8,7 @@ namespace Interactables
 {
     public class EnemySpawnerInteractable : Interactable
     {
-        public GameObject enemy;        //Enemy prefab to be spawned
+        public GameObject[] enemies;        //Enemy prefab to be spawned
         //spawnable positions
         private Vector2[] positions = {new Vector2(5,5), new Vector2(5,-5), new Vector2(-5,-5), new Vector2(-5,5)};
         
@@ -61,8 +61,9 @@ namespace Interactables
             int index = Random.Range(0, positions.Length);
             Vector3 spawnPos = positions[index];
             spawnPos.z = 0;
-            GameObject enemySpawned = Instantiate(enemy, spawnPos, Quaternion.identity);
-            print("Spawned at " + spawnPos);
+            //Randomly choose an enemy to spawn from the array of enemy types
+            GameObject tempEnemy = enemies[Random.Range(0, enemies.Length)];
+            GameObject enemySpawned = Instantiate(tempEnemy, spawnPos, Quaternion.identity);
             
             //Make sure the enemy is visible
             enemySpawned.SetActive(true);

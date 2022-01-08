@@ -40,7 +40,7 @@ namespace Environment
         /// </summary>
         protected abstract void SetOffset();
 
-        private void SetPosition()
+        protected void SetPosition()
         {
             Vector2 tempPos = transform.position;
             tempPos += offset;

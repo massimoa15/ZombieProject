@@ -60,8 +60,8 @@ namespace Interactables
         private void SpawnWave()
         {
             //Update numToSpawn based on the wave num
-            Debug.Log("Currently spawning 5*waveNum enemies per wave");
-            numToSpawn = 5 * GlobalData.GetWaveNum();
+            Debug.Log("Currently spawning 2*waveNum enemies per wave");
+            numToSpawn = 2 * GlobalData.GetWaveNum();
 
             //Add the number that will be spawned to the number of remaining enemies
             numRemEnemies += numToSpawn;

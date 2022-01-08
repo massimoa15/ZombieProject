@@ -21,12 +21,13 @@ namespace Environment
         }
         private void OnEnable()
         {
+            SetPosition();
             SetText("$" + GlobalShop.Items[index].GetCost());
         }
 
         protected override void SetOffset()
         {
-            offset = new Vector2(0, -0.25f);
+            offset = new Vector2(0, -0.5f);
         }
 
         private void SetText(string s)

@@ -57,7 +57,7 @@ namespace Entities
             else if (name == UpgradeName.FiringDelayDown)
             {
                 //Decrease the firing delay of all guns by this amount below, then apply it to the current gun
-                FiringDelayModifier -= 0.01f;
+                FiringDelayModifier += 0.01f;
             }
             else if (name == UpgradeName.Rifle)
             {

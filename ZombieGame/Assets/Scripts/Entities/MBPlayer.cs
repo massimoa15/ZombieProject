@@ -32,6 +32,8 @@ namespace Entities
         
         private Random random = new Random();
 
+        private SpriteRenderer _renderer;
+
 
         private void Awake()
         {
@@ -45,6 +47,8 @@ namespace Entities
             GlobalData.PlayerObjects.Add(gameObject);
             
             mainCam = Camera.main;
+
+            _renderer = GetComponent<SpriteRenderer>();
         }
 
         private void FixedUpdate()
@@ -112,6 +116,18 @@ namespace Entities
                 {
                     shootingVector = context.ReadValue<Vector2>().normalized;
                     holdingShootButton = true;
+                    if (_renderer != null)
+                    {
+                        //Update the renderer to flip if the x value of the shooting vector is negative
+                        if (shootingVector.x < 0)
+                        {
+                            _renderer.flipX = true;
+                        }
+                        else
+                        {
+                            _renderer.flipX = false;
+                        }
+                    }
                 }
                 else
                 {
@@ -133,6 +149,19 @@ namespace Entities
             }
             mousePos = mainCam.ScreenToWorldPoint(mousePos);
             shootingVector = ((Vector3) (mousePos) - transform.position).normalized;
+
+            if (_renderer != null)
+            {
+                //Check if the mousePos is less than the character x position. If it is, make the character face the left by flipping the sprite
+                if (mousePos.x < transform.position.x)
+                {
+                    _renderer.flipX = true;
+                }
+                else
+                {
+                    _renderer.flipX = false;
+                }
+            }
         }
 
         //This will be called when the player hits the interact button. Will check if there is an interactable object within the appropriate radius

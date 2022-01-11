@@ -36,7 +36,6 @@ namespace Entities
         /// <param name="name">Name of upgrade</param>
         public void GiveUpgrade(UpgradeName name)
         {
-            Debug.Log("Gave upgrade: " + name);
             if (name == UpgradeName.Heal1)
             {
                 Heal(1);

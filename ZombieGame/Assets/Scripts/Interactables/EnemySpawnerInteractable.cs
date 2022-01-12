@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
+using Environment;
 using Global;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Interactables
@@ -32,6 +34,9 @@ namespace Interactables
         private SpriteRenderer sRenderer;
 
         private int totalWeight;
+
+        public GameObject canvas;
+        public GameObject healthBarPrefab;
 
         private void Start()
         {
@@ -87,6 +92,18 @@ namespace Interactables
             //Make sure the enemy is visible
             enemySpawned.SetActive(true);
             
+            //Now, instantiate a health bar for this enemy
+            GameObject healthBar = Instantiate(healthBarPrefab, canvas.transform);
+            
+            //Save the Slider of the healthBar in the enemySpawned MBEnemy script
+            enemySpawned.GetComponent<MBEnemy>().SetSlider(healthBar);
+            
+            //Make sure the healthBar starts as not visible
+            healthBar.SetActive(false);
+            
+            //Set object in the FollowObject script of the healthBar
+            healthBar.GetComponent<FollowObject>().SetFollowingObject(enemySpawned);
+
         }
 
         /// <summary>

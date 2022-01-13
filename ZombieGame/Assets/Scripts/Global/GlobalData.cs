@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Entities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Global
 {
@@ -8,11 +9,19 @@ namespace Global
     {
         public static List<Player> Players = new List<Player>();
         public static List<GameObject> PlayerObjects = new List<GameObject>();
+        public static List<GameObject> PlayerPrefabs;
 
         private static int WaveNum = 1;
 
         public static bool IsWaveActive = false;
 
+        public static PlayerInputManager mgr;
+        
+        /// <summary>
+        /// Whether the game has begun or not
+        /// </summary>
+        private static bool IsGameActive = false;
+        
         /// <summary>
         /// Determines if the player exists in this game or not
         /// </summary>
@@ -48,6 +57,37 @@ namespace Global
         public static int GetWaveNum()
         {
             return WaveNum;
+        }
+
+        /// <summary>
+        /// Begin the game
+        /// </summary>
+        public static void StartGame()
+        {
+            IsGameActive = true;
+            //Don't let anyone else join now that we've begun
+            mgr.DisableJoining();
+            //Reset all player animators
+            foreach (var PlayerObject in PlayerObjects)
+            {
+                var anim = PlayerObject.GetComponent<Animator>();
+                anim.Rebind();
+                anim.Update(0f);
+            }
+        }
+
+        /// <summary>
+        /// Has the first wave of the game begun yet
+        /// </summary>
+        /// <returns>true if the first wave has begun, false otherwise</returns>
+        public static bool IsGameStarted()
+        {
+            return IsGameActive;
+        }
+
+        public static void UpdateCurrentPlayerPrefab(int numPlayers)
+        {
+            mgr.playerPrefab = PlayerPrefabs[numPlayers];
         }
     }
 }

@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 785057883}
   - component: {fileID: 785057882}
   m_Layer: 0
-  m_Name: AnimationLoader
+  m_Name: DataLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -796,6 +796,12 @@ MonoBehaviour:
   - {fileID: 9100000, guid: c315de6a80c87e449a59e89bf58b34db, type: 2}
   - {fileID: 9100000, guid: 02629b223c461494195e5847648cf88f, type: 2}
   - {fileID: 9100000, guid: 55023571c84834e4a9d30bf5471a0ac7, type: 2}
+  mgr: {fileID: 2059714250}
+  PlayerPrefabs:
+  - {fileID: 2613652342155201303, guid: 2e93832414fd73b4d95475e167e0bd5f, type: 3}
+  - {fileID: 2613652342155201303, guid: 6ddab283901c7a049a6d3c2ed6b55a46, type: 3}
+  - {fileID: 2613652342155201303, guid: 2ac3f37d21d5e7143b235fd53887ff0b, type: 3}
+  - {fileID: 2613652342155201303, guid: 9b3174b8af8d31e48a7a8a13e6ffb3d4, type: 3}
 --- !u!4 &785057883
 Transform:
   m_ObjectHideFlags: 0
@@ -2885,7 +2891,7 @@ Animator:
   m_GameObject: {fileID: 1199742304}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a0644dfb6f818df4d9d1ed4430cd6819, type: 2}
+  m_Controller: {fileID: 9100000, guid: 350ffef865cafe5419224245336c6f2c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11091,6 +11097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2059714251}
   - component: {fileID: 2059714250}
+  - component: {fileID: 2059714252}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -11116,22 +11123,34 @@ MonoBehaviour:
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2059714252}
+        m_TargetAssemblyTypeName: PlayerJoinController, Assembly-CSharp
+        m_MethodName: OnJoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: 1601d111-ca75-4484-90a8-f7b91f6b8d61
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 2613652342155201303, guid: 9b3174b8af8d31e48a7a8a13e6ffb3d4, type: 3}
+  m_PlayerPrefab: {fileID: 2613652342155201303, guid: 2e93832414fd73b4d95475e167e0bd5f, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -11155,6 +11174,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059714252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059714249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf40db78eafa6845b4d4a3c845080ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2066720563
 GameObject:
   m_ObjectHideFlags: 0

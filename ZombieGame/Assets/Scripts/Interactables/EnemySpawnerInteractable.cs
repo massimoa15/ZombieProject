@@ -141,6 +141,11 @@ namespace Interactables
         {
             if (numRemEnemies <= 0)
             {
+                //Set the global variable that tracks whether the game has started to true if we haven't yet
+                if (!GlobalData.IsGameStarted())
+                {
+                    GlobalData.StartGame();
+                }
                 //Starting a wave
                 GlobalData.IsWaveActive = true;
                 

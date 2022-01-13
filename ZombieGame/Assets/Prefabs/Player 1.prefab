@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3996970533689857074}
   - component: {fileID: 6508615814005696035}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,8 +190,12 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7726aa37-e0a0-448b-809b-9037e7c20c7d
     m_ActionName: Gameplay/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 856ab0a8-700e-40b5-9b2e-5ea8dc200dbf
+    m_ActionName: Gameplay/Pause[/XInputControllerWindows/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Controller
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

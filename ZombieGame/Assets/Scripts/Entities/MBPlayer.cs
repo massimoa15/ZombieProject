@@ -34,6 +34,10 @@ namespace Entities
 
         private SpriteRenderer _renderer;
 
+        private bool isInvincible = false;
+        private float invincibilityDurat = 2f;
+        private float flashDelay = 0.1f;
+
 
         private void Awake()
         {
@@ -227,13 +231,34 @@ namespace Entities
         private void OnCollisionEnter2D(Collision2D other)
         {
             //Collided with an enemy!
-            if (other.collider.CompareTag("Enemy"))
+            if (other.collider.CompareTag("Enemy") && !isInvincible)
             {
                 //Take damage equal to the enemy's damage stat
                 player.TakeDamage(other.gameObject.GetComponent<MBEnemy>().Character.ContactDamage);
                 
-                //TODO give i-frames?
+                //Give I-frames
+                StartCoroutine(GiveInvincibilityCoroutine(invincibilityDurat, flashDelay));
             }
+        }
+
+        /// <summary>
+        /// Make the player invincible for the provided amount of time
+        /// </summary>
+        /// <param name="totalDelay">Amount of time to be invincible for</param>
+        /// <returns></returns>
+        IEnumerator GiveInvincibilityCoroutine(float totalDelay, float flashDelay)
+        {
+            isInvincible = true;
+            float amtWaited = 0f;
+            while (amtWaited < totalDelay)
+            {
+                _renderer.enabled = !_renderer.enabled;
+                yield return new WaitForSeconds(flashDelay);
+                amtWaited += flashDelay;
+            }
+
+            _renderer.enabled = true;
+            isInvincible = false;
         }
 
         /// <summary>

@@ -69,7 +69,7 @@ namespace Interactables
             numToSpawn = 2 * GlobalData.GetWaveNum();
 
             //Add the number that will be spawned to the number of remaining enemies
-            numRemEnemies += numToSpawn;
+            numRemEnemies = numToSpawn;
             
             GlobalData.IncrementWaveNum();
             

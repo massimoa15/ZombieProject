@@ -17,21 +17,12 @@ public class PlayerJoinController : MonoBehaviour
     private static int numPlayers = 0;
 
     /// <summary>
-    /// Called when player selects a character
+    /// Called when a player joins the game
     /// </summary>
     public static void OnJoin()
     {
         //Someone joined, increment the number of players
         numPlayers++;
         GlobalData.UpdateCurrentPlayerPrefab(numPlayers);
-    }
-
-    /// <summary>
-    /// Called when player leaves the character select screen
-    /// </summary>
-    public void OnLeave(InputAction.CallbackContext callbackContext)
-    {
-        numPlayers--;
-        print("bye");
     }
 }

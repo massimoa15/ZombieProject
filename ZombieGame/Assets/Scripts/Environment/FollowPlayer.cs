@@ -13,11 +13,9 @@ namespace Environment
         private float playAreaHighestX = 13f;
         private float playAreaLowestY = -13f;
         private float playAreaHighestY = 13f;
-        
-
 
         //Player that is being followed
-        public GameObject player;
+        private GameObject player;
 
         private float xOffset = 0;
         private float yOffset = 0; 

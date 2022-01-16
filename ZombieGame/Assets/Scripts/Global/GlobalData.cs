@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Entities;
+using Interactables;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,27 @@ namespace Global
         /// Whether the game has begun or not
         /// </summary>
         private static bool IsGameActive = false;
+
+        public static PauseMenu pauseMenu;
+
+        public static InputActionAsset InputActionAsset;
+
+        /// <summary>
+        /// Instantiate all values to their starting values
+        /// </summary>
+        public static void RestartGame()
+        {
+            Players = new List<Player>();
+            PlayerObjects = new List<GameObject>();
+            WaveNum = 1;
+            IsWaveActive = false;
+            IsGameActive = false;
+            mgr.EnableJoining();
+            GlobalShop.Reset();
+            EnemySpawnerInteractable.ResetNumRemEnemies();
+            UpdateCurrentPlayerPrefab(0);
+            UpdateInputActions();
+        }
         
         /// <summary>
         /// Determines if the player exists in this game or not
@@ -88,6 +110,22 @@ namespace Global
         public static void UpdateCurrentPlayerPrefab(int numPlayers)
         {
             mgr.playerPrefab = PlayerPrefabs[numPlayers];
+        }
+
+        /// <summary>
+        /// Save reference of the pause menu
+        /// </summary>
+        public static void SavePauseMenu(PauseMenu menu)
+        {
+            pauseMenu = menu;
+        }
+
+        private static void UpdateInputActions()
+        {
+            foreach (var playerPrefab in PlayerPrefabs)
+            {
+                playerPrefab.GetComponent<PlayerInput>().actions = InputActionAsset;
+            }
         }
     }
 }

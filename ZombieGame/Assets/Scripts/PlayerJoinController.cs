@@ -11,7 +11,8 @@ public class PlayerJoinController : MonoBehaviour
 {
     private void Awake()
     {
-        GlobalData.UpdateCurrentPlayerPrefab(1);
+        numPlayers = 0;
+        GlobalData.UpdateCurrentPlayerPrefab(0);
     }
 
     private static int numPlayers = 0;

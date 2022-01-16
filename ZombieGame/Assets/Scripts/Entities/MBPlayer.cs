@@ -38,6 +38,12 @@ namespace Entities
         private float invincibilityDurat = 2f;
         private float flashDelay = 0.1f;
 
+        public static PauseMenu pauseMenu;
+
+        private void Start()
+        {
+            pauseMenu = GlobalData.pauseMenu;
+        }
 
         private void Awake()
         {
@@ -322,6 +328,14 @@ namespace Entities
 
             //Save values in shooting vector
             return new Vector2(x, y);
+        }
+
+        public void TogglePause(InputAction.CallbackContext callbackContext)
+        {
+            if (callbackContext.performed)
+            {
+                pauseMenu.TogglePause();
+            }
         }
     }
 }

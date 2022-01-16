@@ -11,11 +11,17 @@ public class GlobalDataLoader : MonoBehaviour
 
     public List<GameObject> PlayerPrefabs;
 
-    void Start()
+    public PauseMenu pauseMenu;
+
+    public InputActionAsset inputActionAsset;
+
+    void Awake()
     {
         //Add the list of animations to the global class
         GlobalShop.Animations = shopAnimations;
         GlobalData.mgr = mgr;
         GlobalData.PlayerPrefabs = PlayerPrefabs;
+        GlobalData.SavePauseMenu(pauseMenu);
+        GlobalData.InputActionAsset = inputActionAsset;
     }
 }

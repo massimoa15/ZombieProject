@@ -1,5 +1,7 @@
+using System;
 using Global;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Environment
 {
@@ -8,6 +10,14 @@ namespace Environment
         public GameObject ShopUIHolder;
 
         public GameObject[] textPrices;
+
+        private void Awake()
+        {
+            foreach (var price in textPrices)
+            {
+                price.GetComponent<Text>().text = "";
+            }
+        }
 
         void Update()
         {

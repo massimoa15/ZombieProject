@@ -15,7 +15,7 @@ namespace Environment
 
         protected Vector2 offset;
 
-        protected void Start()
+        protected void Awake()
         {
             mainCam = Camera.main;
             SetOffset();

@@ -137,6 +137,14 @@ namespace Interactables
             return numRemEnemies;
         }
 
+        /// <summary>
+        /// Resets the number of enemies counter
+        /// </summary>
+        public static void ResetNumRemEnemies()
+        {
+            numRemEnemies = 0;
+        }
+
         public override void Interact(MBPlayer player)
         {
             if (numRemEnemies <= 0)

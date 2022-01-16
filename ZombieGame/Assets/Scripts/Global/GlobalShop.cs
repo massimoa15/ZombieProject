@@ -24,6 +24,15 @@ namespace Global
         //A list of all of the different types of items. This will be used when determining what to put in the shop
         public static Item[] ItemList = {new Item(5, UpgradeName.Heal1), new Item(5, UpgradeName.HealthUp), new Item(5, UpgradeName.DamageUp), new Item(5, UpgradeName.SpeedUp), new Item(5, UpgradeName.FiringDelayDown), new Item(10, UpgradeName.Rifle), new Item(10, UpgradeName.SMG)};
         public static RuntimeAnimatorController[] Animations;
+
+        public static void Reset()
+        {
+            for (int i = 0; i < Items.Length; i++)
+            {
+                Items[i] = new Item(5);
+                ItemAvailability[i] = false;
+            }
+        }
         
         /// <summary>
         /// Make item i no longer available

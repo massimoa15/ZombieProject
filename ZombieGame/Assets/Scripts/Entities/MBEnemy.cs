@@ -4,6 +4,7 @@ using Interactables;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Random = System.Random;
 
 namespace Entities
 {
@@ -48,12 +49,14 @@ namespace Entities
                     //If the enemy died, need to give money to the player that killed it
                     bullet.GiveMoneyToBulletOwner(Character.Money);
                     
+                    GlobalData.IncrementEnemiesKilled();
+
                     //Destroy the health bar
                     Destroy(healthBarObj);
                     
                     //Kill the enemy
                     Destroy(gameObject);
-                    
+
                     //Decrement the number of remaining enemies
                     EnemySpawnerInteractable.DecreaseRemEnemies();
                 }

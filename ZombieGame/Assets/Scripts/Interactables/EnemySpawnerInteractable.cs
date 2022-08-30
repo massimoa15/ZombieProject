@@ -102,7 +102,7 @@ namespace Interactables
             healthBar.SetActive(false);
             
             //Set object in the FollowObject script of the healthBar
-            healthBar.GetComponent<FollowObject>().SetFollowingObject(enemySpawned);
+            healthBar.GetComponent<UIFollowObject>().SetFollowingObject(enemySpawned);
 
         }
 

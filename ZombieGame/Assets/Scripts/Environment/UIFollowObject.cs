@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Environment
 {
-    public class FollowObject : MonoBehaviour
+    public class UIFollowObject : MonoBehaviour
     {
-        private GameObject following;
+        public GameObject following;
         public Vector3 offset;
 
         private Camera mainCam;

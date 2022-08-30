@@ -18,7 +18,7 @@ namespace Entities
         public Gun gun;
         
         private Rigidbody2D rb;
-
+        
         /// <summary>
         /// Initialize this bullet with some important information
         /// </summary>

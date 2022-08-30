@@ -3,6 +3,7 @@ using System.Collections;
 using Global;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 namespace Entities
@@ -240,7 +241,19 @@ namespace Entities
             if (other.collider.CompareTag("Enemy") && !isInvincible)
             {
                 //Take damage equal to the enemy's damage stat
-                player.TakeDamage(other.gameObject.GetComponent<MBEnemy>().Character.ContactDamage);
+                var remHealth = player.TakeDamage(other.gameObject.GetComponent<MBEnemy>().Character.ContactDamage);
+
+                //Player died
+                if (remHealth <= 0)
+                {
+                    GlobalData.Players.Remove(player);
+                    //Nobody is still alive in this game
+                    if (GlobalData.Players.Count <= 0)
+                    {
+                        SceneManager.LoadScene(2);
+                    }
+                    Destroy(this);
+                }
                 
                 //Give I-frames
                 StartCoroutine(GiveInvincibilityCoroutine(invincibilityDurat, flashDelay));
@@ -336,6 +349,11 @@ namespace Entities
             {
                 pauseMenu.TogglePause();
             }
+        }
+
+        public string GetStatString()
+        {
+            return player.GetStatString();
         }
     }
 }

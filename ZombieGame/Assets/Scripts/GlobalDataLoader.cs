@@ -14,7 +14,7 @@ public class GlobalDataLoader : MonoBehaviour
     public PauseMenu pauseMenu;
 
     public InputActionAsset inputActionAsset;
-
+    
     void Awake()
     {
         //Add the list of animations to the global class

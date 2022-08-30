@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Entities;
 using Interactables;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,8 @@ namespace Global
 
         public static InputActionAsset InputActionAsset;
 
+        private static int EnemiesKilled = 0;
+
         /// <summary>
         /// Instantiate all values to their starting values
         /// </summary>
@@ -42,6 +45,7 @@ namespace Global
             EnemySpawnerInteractable.ResetNumRemEnemies();
             UpdateCurrentPlayerPrefab(0);
             UpdateInputActions();
+            EnemiesKilled = 0;
         }
         
         /// <summary>
@@ -126,6 +130,16 @@ namespace Global
             {
                 playerPrefab.GetComponent<PlayerInput>().actions = InputActionAsset;
             }
+        }
+
+        public static void IncrementEnemiesKilled()
+        {
+            EnemiesKilled++;
+        }
+
+        public static int GetEnemiesKilled()
+        {
+            return EnemiesKilled;
         }
     }
 }

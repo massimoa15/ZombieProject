@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Global;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -11,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     private float cooldownDuration = 0.1f;
     public bool onCooldown = false;
 
+    
     /// <summary>
     /// Called when a player wants to pause the game. Will pause or resume it depending on current state
     /// </summary>
@@ -55,6 +58,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         isGamePaused = false;
         GlobalData.RestartGame();
+        StartGame();
+    }
+
+    public void StartGame()
+    {
         SceneManager.LoadScene("SampleScene");
     }
 

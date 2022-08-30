@@ -27,7 +27,7 @@ namespace Entities
         /// Damage dealt on contact (perhaps melee implementation for player?)
         /// </summary>
         public int ContactDamage { get; set; }
-        
+
         /// <summary>
         /// Amount of money that this character has. When an enemy character dies, their money goes to the character that killed them.
         /// </summary>
@@ -38,7 +38,6 @@ namespace Entities
         /// </summary>
         public Character() : this(3, 3, 1, 1)
         {
-            
         }
         
         /// <summary>
@@ -104,7 +103,7 @@ namespace Entities
         }
 
         //Decrease health by the provided amount
-        public void TakeDamage(int val)
+        public int TakeDamage(int val)
         {
             CurHealth -= val;
         
@@ -116,6 +115,8 @@ namespace Entities
                 //Die
                 Die();
             }
+
+            return CurHealth;
         }
 
         public void Heal(int val)

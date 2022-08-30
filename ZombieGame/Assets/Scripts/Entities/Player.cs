@@ -144,5 +144,10 @@ namespace Entities
         {
             return Gun.Damage + DamageModifier;
         }
+
+        public string GetStatString()
+        {
+            return "SPD: " + Speed + " DMG: " + GetAccurateDamage() + " FIR: " + GetAccurateFiringDelay();
+        }
     }
 }
